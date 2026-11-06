@@ -32,7 +32,7 @@ function Register() {
       if (!response.ok) {
         throw new Error(data?.error ?? `Request failed (${response.status})`);
       }
-      console.log('Account created successfully:', data);
+      console.log('Account created successfully!');
     } catch (error) {
       console.error('Error creating account:', error);
     }
