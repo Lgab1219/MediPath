@@ -1,5 +1,6 @@
-import { StyleSheet, View, Text, TextInput, Pressable } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Pressable, ScrollView } from 'react-native';
 import { useState } from 'react';
+import { Link } from '@react-navigation/native';
 
 interface UserInput {
   email: string;
@@ -21,7 +22,7 @@ function Register() {
   async function handleSubmit() {
 
     try {
-      const response = await fetch(`${API_URL}/accounts`, {
+      const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,9 +44,9 @@ function Register() {
   }
 
     return (
-        <View>
+        <ScrollView style={styles.appContainer}>
             <View style={styles.sectionContainer}>
-              <Text style={{ color: '#000', fontWeight: 700 }}>Create account</Text>
+              <Text style={{ color: '#000', fontWeight: 700, fontSize: 24 }}>Create account</Text>
               <Text style={{ color: '#00000060' }}>Takes less than a minute</Text>
             </View>
 
@@ -81,7 +82,11 @@ function Register() {
                 </Text>
               </Pressable>
             </View>
-        </View>
+
+            <View style={styles.sectionContainer}>
+              <Text style={{ color: '#000' }}>Already have an account? <Link screen='Login'>Log in</Link> </Text>
+            </View>
+        </ScrollView>
     );
 }
 
