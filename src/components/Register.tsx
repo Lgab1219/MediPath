@@ -5,6 +5,8 @@ interface UserInput {
   email: string;
   password: string;
   full_name: string;
+  confirm_password: string;
+  phone_number: string;
 }
 
 interface ApiError {
@@ -14,7 +16,7 @@ interface ApiError {
 const API_URL = 'http://192.168.1.11:3000';
 
 function Register() {
-  const [input, setInput] = useState<UserInput>({ email: '', password: '', full_name: '' });
+  const [input, setInput] = useState<UserInput>({ email: '', password: '', full_name: '', confirm_password: '', phone_number: '' });
 
   async function handleSubmit() {
 
@@ -24,7 +26,7 @@ function Register() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: input.email, password: input.password, full_name: input.full_name }),
+        body: JSON.stringify({ email: input.email, password: input.password, full_name: input.full_name, phone_number: input.phone_number, confirm_password: input.confirm_password }),
       });
 
       const data = (await response.json().catch(() => null)) as ApiError | null;
@@ -37,14 +39,24 @@ function Register() {
       console.error('Error creating account:', error);
     }
 
-    console.log("Input submitted!");
+    console.log("Input submitted: ", input);
   }
 
     return (
         <View>
             <View style={styles.sectionContainer}>
+              <Text style={{ color: '#000', fontWeight: 700 }}>Create account</Text>
+              <Text style={{ color: '#00000060' }}>Takes less than a minute</Text>
+            </View>
+
+            <View style={styles.sectionContainer}>
               <Text style={{ color: '#000' }}>Full Name</Text>
               <TextInput style={styles.inputBar} onChangeText={(text) => setInput({...input, full_name: text})} />
+            </View>
+
+            <View style={styles.sectionContainer}>
+              <Text style={{ color: '#000' }}>Mobile Number</Text>
+              <TextInput style={styles.inputBar} onChangeText={(text) => setInput({...input, phone_number: text})} keyboardType="numeric" />
             </View>
 
             <View style={styles.sectionContainer}>
@@ -58,9 +70,14 @@ function Register() {
             </View>
 
             <View style={styles.sectionContainer}>
+              <Text style={{ color: '#000' }}>Confirm Password</Text>
+              <TextInput style={styles.inputBar} secureTextEntry={true} onChangeText={(text) => setInput({...input, confirm_password: text})} />
+            </View>
+
+            <View style={styles.sectionContainer}>
               <Pressable style={({ pressed }) => [styles.submitBtn, pressed && styles.pressedBtn]} onPress={handleSubmit}>
                 <Text style={{ color: '#ffffff' }}>
-                  Submit
+                  Create account
                 </Text>
               </Pressable>
             </View>
