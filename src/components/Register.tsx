@@ -18,6 +18,8 @@ const API_URL = 'http://192.168.1.11:3000';
 
 function Register() {
   const [input, setInput] = useState<UserInput>({ email: '', password: '', full_name: '', confirm_password: '', phone_number: '' });
+  
+  const [error, setError] = useState<string>('');
 
   async function handleSubmit() {
 
@@ -37,7 +39,7 @@ function Register() {
       }
       console.log('Account created successfully!');
     } catch (error) {
-      console.error('Error creating account:', error);
+      setError((error as Error).message);
     }
 
     console.log("Input submitted: ", input);
@@ -81,6 +83,7 @@ function Register() {
                   Create account
                 </Text>
               </Pressable>
+              <Text style={{ color: '#ff0000' }}>{ error ? error : '' }</Text>
             </View>
 
             <View style={styles.sectionContainer}>
