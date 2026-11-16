@@ -1,7 +1,10 @@
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import type { StaticScreenProps } from '@react-navigation/native';
 
-function Home() {
+type Props = StaticScreenProps<{ full_name: string }>;
+
+function Home({ route }: Props) {
 
   const navigation = useNavigation();
 
@@ -9,6 +12,7 @@ function Home() {
         <ScrollView style={styles.appContainer}>
             <View style={styles.sectionContainer}>
               <Text>Home Screen</Text>
+              <Text>Welcome, {route.params?.full_name}!</Text>
             </View>
 
             <View style={styles.sectionContainer}>
