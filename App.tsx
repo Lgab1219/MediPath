@@ -11,7 +11,7 @@ function App() {
 }
 
 const RootStack = createNativeStackNavigator({
-  initialRouteName: 'Home',
+  initialRouteName: 'Login',
   screens: {
     Home: Home,
     Register: Register,
