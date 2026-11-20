@@ -13,6 +13,7 @@ interface ApiError {
   error?: string;
 }
 
+// NOTE: Change the API_URL to your local machine's IP address and port where the backend server is running.
 const API_URL = 'http://192.168.1.11:3000';
 
 function Login() {
