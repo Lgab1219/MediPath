@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "MediPath",
+    "slug": "medipath-mobile",
+    "scheme": "medipath",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-status-bar"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

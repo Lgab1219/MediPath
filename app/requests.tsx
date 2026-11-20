@@ -1,0 +1,7 @@
+import { router } from "expo-router";
+import { StyleSheet, Text, View } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { colors } from "../src/theme";
+import { Button, Card, Header, Screen, Tag } from "../src/components/MobileUI";
+export default function Requests(){return <Screen><Header title="Saved Requests" subtitle="Your emergency request history"/><View style={s.empty}><View style={s.icon}><Feather name="clipboard" size={28} color={colors.teal}/></View><Text style={s.title}>No saved requests yet</Text><Text style={s.copy}>Your submitted emergency requests will appear here when the request service and account storage are connected.</Text><Tag tone="amber">No live request history</Tag></View><Button title="Back to Home" onPress={()=>router.replace("/home")}/><Card style={{flexDirection:"row",gap:9}}><Feather name="info" size={16} color={colors.muted}/><Text style={{flex:1,fontSize:11,lineHeight:16,color:colors.muted}}>This screen currently shows an empty demo state. No emergency requests are being stored.</Text></Card></Screen>}
+const s=StyleSheet.create({empty:{flex:1,minHeight:300,alignItems:"center",justifyContent:"center",gap:12,paddingHorizontal:20},icon:{width:68,height:68,borderRadius:22,backgroundColor:colors.tealSoft,alignItems:"center",justifyContent:"center"},title:{fontSize:17,fontWeight:"800",color:colors.navy},copy:{fontSize:12,lineHeight:18,color:colors.muted,textAlign:"center"}});
