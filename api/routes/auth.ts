@@ -2,11 +2,13 @@ import express, { type Express, type Request, type Response } from 'express';
 import { pool } from '../src/db';
 import bcrypt from 'bcrypt';
 
-// NOTE: Need to fix the login bug: Logging in even though password is incorrect. 
-// The issue is that the response is sent before the password comparison is done. 
-// The response should only be sent after the password comparison is done and the account is verified to be valid.
 
 const router = express.Router();
+
+function isValidEmail(email: string): boolean {
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return EMAIL_REGEX.test(email.trim());
+}
 
 async function hashPassword(password: string): Promise<string> {
     const saltRounds = 12;
@@ -42,6 +44,10 @@ router.post('/register', async (req: Request, res: Response) => {
 
     if (!full_name || !email || !password || !confirm_password || !phone_number) {
         return res.status(400).json({ error: 'Please fill in all fields!' });
+    }
+
+    if (!isValidEmail(email.toLowerCase())) {
+        return res.status(400).json({ error: 'Please enter a valid email address!' });
     }
 
     if (password !== confirm_password) {
@@ -80,7 +86,10 @@ router.post('/login', async (req: Request, res: Response) => {
             [email.toLowerCase()]
         );
 
-        res.status(201).json(rows[0]);
+        // Fixed login bug. Now the response is sent only after the password comparison is done and the account is verified to be valid.
+        if (!rows || rows.length === 0) {
+            return res.status(401).json({ error: 'Invalid email or password!' });
+        }
 
         const validAccount = await comparePassword(password, rows[0].password);
 
