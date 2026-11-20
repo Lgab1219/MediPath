@@ -1,40 +1,197 @@
-# MediPath mobile — Expo starter
+# MediPath — Emergency Assistance Mobile Application
 
-This starter is based on the MediPath Figma screens inspected for:
-- Welcome / onboarding
-- Home dashboard
-- Nearest Hospitals
-- Route details
+MediPath is an emergency assistance mobile application designed to help users access emergency-related information, locate nearby hospitals, and navigate essential emergency assistance features.
 
-It uses React Native + Expo Router + TypeScript + Supabase JS. It is a frontend scaffold with demo data; it is **not** an operational emergency dispatch application.
+The project is based on the MediPath UI/UX designs created in Figma. It consists of two applications:
 
-## 1. Requirements
+- **Mobile Application:** React Native, Expo, Expo Router, and TypeScript.
+- **Admin Web Dashboard:** React, Vite, and TypeScript.
+
+The project currently focuses on frontend development, UI implementation, and demonstration interactions. It is **not yet an operational emergency dispatch system**.
+
+---
+
+## 1. Technologies Used
+
+### Mobile Application
+- React Native
+- Expo SDK 58
+- Expo Router
+- TypeScript
+- Supabase JavaScript Client
+- Expo Go
+
+### Admin Web Dashboard
+- React
+- Vite
+- TypeScript
+- CSS
+
+### Planned Integrations
+- Supabase Authentication and Database
+- Mapbox Maps and Directions API
+- Location Services
+- Barangay Notifications
+- Emergency Request Management
+
+---
+
+## 2. Requirements
+
+Before running the project, make sure you have installed:
 
 - Node.js LTS
-- VS Code
+- Visual Studio Code
+- Git
 - Expo Go on an Android phone (or an Android emulator)
 - Internet connection for package installation
 
-## 2. Run the project
+---
 
-Open this folder in VS Code, then run:
+## 3. Project Structure
+
+```text
+medipath_work/
+│
+├── admin/                    # Admin web dashboard
+│   ├── public/
+│   ├── src/
+│   ├── .env.example
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── app/                      # Expo Router screens
+│   ├── _layout.tsx
+│   ├── index.tsx
+│   ├── home.tsx
+│   ├── hospitals.tsx
+│   ├── route.tsx
+│   ├── first-aid.tsx
+│   ├── assistant.tsx
+│   ├── contacts.tsx
+│   ├── requests.tsx
+│   ├── profile.tsx
+│   └── ...
+│
+├── assets/
+│   └── brand/                # MediPath logos and branding
+│
+├── src/
+│   ├── components/           # Reusable UI components
+│   ├── data/                 # Demo data
+│   ├── lib/                  # Supabase client setup
+│   └── theme.ts              # App theme and styling
+│
+├── .env.example
+├── .gitignore
+├── app.json
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+└── README.md
+```
+
+---
+
+## 4. Running the Mobile Application
+
+Open the project root folder in VS Code.
+
+### Step 1: Install dependencies
 
 ```bash
 npm install
+```
+
+### Step 2: Start Expo
+
+```bash
 npx expo start
 ```
 
-Scan the QR code using Expo Go. If the phone and computer cannot connect, try:
+Scan the generated QR code using Expo Go on your Android phone.
+
+If your phone and computer cannot connect through the local network, use:
 
 ```bash
 npx expo start --tunnel
 ```
 
-## 3. Configure Supabase
+If you need to clear the Expo cache:
 
-1. Copy `.env.example` and rename the copy to `.env`.
-2. In Supabase, open **Project Settings → API**.
-3. Copy the Project URL and the publishable key (or legacy anon key) into `.env`.
+```bash
+npx expo start --tunnel --clear
+```
+
+---
+
+## 5. Running the Admin Web Dashboard
+
+The admin dashboard is a separate React + Vite application located inside the `admin/` directory.
+
+It is intended for barangay and administrative staff to manage emergency-related information through a desktop web interface.
+
+### Step 1: Open a second terminal
+
+Make sure you are in the project root, then navigate to the admin folder:
+
+```bash
+cd admin
+```
+
+### Step 2: Install admin dependencies
+
+```bash
+npm install
+```
+
+### Step 3: Start the development server
+
+```bash
+npm run dev
+```
+
+### Step 4: Open the dashboard
+
+Visit the local URL displayed by Vite. The default address is:
+
+```text
+http://localhost:5173
+```
+
+### Admin Dashboard Pages
+
+The current admin interface includes:
+
+- Staff Login
+- Dashboard
+- Emergency Requests
+- Hospital Management
+- First Aid Content
+- User Management
+- Reports
+- Settings
+
+**Preview Login:**
+
+For the current UI demonstration, enter any valid-looking email address and a password containing at least six characters.
+
+The role selector is only for previewing the interface. Authentication is not connected, and the records and actions use local sample data.
+
+---
+
+## 6. Configuring Supabase
+
+Supabase is planned as the backend service for MediPath. The current client setup remains inactive until the required environment variables are provided.
+
+### Mobile Application Setup
+
+1. Create a Supabase project.
+2. Open **Project Settings → API**.
+3. Copy your Project URL and publishable key (or legacy anon key).
+4. Copy `.env.example` and rename the copy to `.env`.
+5. Add your Supabase credentials.
 
 Example:
 
@@ -49,103 +206,135 @@ Restart Expo after changing environment variables:
 npx expo start -c
 ```
 
-Never put a Supabase `service_role` key in a mobile app. The publishable/anon key is intended for client use only when Row Level Security (RLS) is correctly enabled.
+The Supabase client is initialized in:
 
-The Supabase client is initialized in `src/lib/supabase.ts`. It remains `null` until the environment variables are supplied.
+```text
+src/lib/supabase.ts
+```
 
-## 4. Current implementation status
+It remains `null` until the required environment variables are supplied.
 
-| Feature | Status |
+### Admin Dashboard Setup
+
+The admin application has its own environment configuration file:
+
+```text
+admin/.env.example
+```
+
+Create a corresponding `admin/.env` when configuring the admin application for future Supabase integration.
+
+**Security Reminder:**
+
+Never expose a Supabase `service_role` key in a mobile application or browser-based admin application. Use the publishable/anon key with properly configured Row Level Security (RLS) policies.
+
+---
+
+## 7. Current Implementation Status
+
+### Mobile Application
+
+| Feature | Current Status |
 |---|---|
-| Welcome screen | UI and navigation |
-| Home dashboard | UI and navigation |
-| SOS hold gesture | 2-second demo interaction only |
-| Hospital list | Sample data |
-| Route detail | Static illustration; no live route |
-| Profile / contacts / requests | Placeholder screens |
-| Supabase | Client setup placeholder; no tables queried |
+| Welcome and onboarding | UI and navigation implemented |
+| Login and registration | UI implemented |
+| Home dashboard | UI and navigation implemented |
+| SOS button | 2-second hold demonstration |
+| Nearest hospitals | Sample hospital data |
+| Hospital route details | Static illustration |
+| First Aid | Topic list and detail screens |
+| CPR Guide | Overview and instructional UI |
+| Emergency details | Form demonstration |
+| Request status | Demonstration screen |
+| Emergency contacts | UI implemented |
+| AI Assistant | Placeholder interface |
+| Profile and settings | UI implemented |
+| Saved requests | Demonstration interface |
+| Supabase | Client setup placeholder |
 | Mapbox | Not connected |
 | Barangay notifications | Not connected |
 | Real emergency dispatch | Not connected |
 
-## 5. Important before real-world use
+### Admin Web Dashboard
 
-The SOS button currently shows a demo alert. It does not send a request, share location, call emergency services, or notify barangay responders. Hospital records and routes are sample UI data, not verified live facility availability or routing.
+| Feature | Current Status |
+|---|---|
+| Staff login | UI preview only |
+| Dashboard | UI with sample data |
+| Emergency requests | Sample data |
+| Hospital management | UI with sample data |
+| First Aid content | UI with sample data |
+| User management | UI with sample data |
+| Reports | UI with sample data |
+| Settings | UI implemented |
+| Supabase authentication | Not connected |
+| Live database operations | Not connected |
 
-Before connecting Supabase, obtain the team's actual schema and RLS policies for profiles, emergency requests, hospitals, and responder notifications. For a real emergency workflow, implement server-side validation and notification delivery (for example, Supabase Edge Functions plus a verified push/SMS provider). Do not expose service-role credentials in the app.
+---
 
-## 6. Next development steps
+## 8. Important Limitations and Safety Notice
 
-1. Match the remaining Figma screens and reusable components.
-2. Confirm Supabase tables, columns, relationships, and RLS policies.
-3. Implement authentication and profile retrieval.
-4. Implement emergency request creation and responder updates.
-5. Add location permissions and Mapbox maps/directions.
-6. Test offline behavior, failed network requests, and emergency flows.
+MediPath is currently a frontend prototype with demonstration interactions.
 
-## Project structure
+The following features are not yet operational:
 
-```text
-app/
-  _layout.tsx
-  index.tsx
-  home.tsx
-  hospitals.tsx
-  route.tsx
-  first-aid.tsx
-  assistant.tsx
-  contacts.tsx
-  requests.tsx
-  profile.tsx
-src/
-  components/UI.tsx
-  data/demo.ts
-  lib/supabase.ts
-  theme.ts
-.env.example
+- The SOS button does not send a real emergency request.
+- The application does not automatically notify barangay responders.
+- The application does not send the user's GPS coordinates to emergency personnel.
+- Hospital information is sample data and does not represent verified facility availability.
+- Route information is illustrative and does not use live navigation.
+- Supabase authentication and database operations are not connected.
+- The AI Assistant does not generate live responses.
+- Admin dashboard records and actions are currently based on local sample data.
+
+**Do not use this prototype as an actual emergency response or dispatch service.**
+
+First Aid and CPR content must be reviewed and approved by a qualified medical professional before public use.
+
+---
+
+## 9. Next Development Steps
+
+The planned development tasks include:
+
+1. Complete the remaining Figma screen implementations and improve UI consistency.
+2. Finalize the Supabase database schema, relationships, and RLS policies.
+3. Implement user authentication and profile management.
+4. Connect the admin dashboard to Supabase.
+5. Implement emergency request creation and responder status updates.
+6. Integrate location permissions and Mapbox maps and directions.
+7. Develop barangay notification functionality.
+8. Implement appropriate server-side validation and notification delivery.
+9. Test offline functionality, failed network requests, and emergency workflows.
+10. Conduct usability and functionality testing.
+
+---
+
+## 10. Development Notes
+
+The mobile application and admin dashboard have separate dependency configurations.
+
+When setting up the project on a new computer, install their dependencies separately:
+
+**Mobile Application:**
+
+```bash
+npm install
 ```
 
-## 7. Admin web dashboard (new)
-
-The admin dashboard is a separate Vite + React application inside `admin/`. It is intended for barangay/admin staff on desktop browsers and shares the MediPath design language. It does not change the Expo mobile app or its SDK 58 dependencies.
-
-Open a second VS Code terminal:
+**Admin Web Dashboard:**
 
 ```bash
 cd admin
 npm install
-npm run dev
 ```
 
-Open the local URL printed by Vite (normally `http://localhost:5173`). The admin pages include staff sign-in, dashboard, emergency requests, hospital management, first-aid content, user management, reports, and settings.
+You do not need to reinstall dependencies every time you run the applications. Installation is normally required only during initial setup, after deleting `node_modules`, or when project dependencies change.
 
-**Preview login:** enter any valid-looking email address and a password of at least 6 characters. The role selector is for previewing the UI only. Authentication is not connected, and the records/actions are local sample data. Do not use this preview for actual emergency operations.
+The `node_modules` folders are excluded from GitHub. The corresponding `package.json` and `package-lock.json` files should remain in the repository.
 
-The admin app has its own `.env.example` for future Supabase configuration. Do not put a Supabase service-role key in the browser app. Before connecting live data, confirm the team's database schema, staff roles, authentication flow, and Row Level Security policies.
+---
 
-## Mobile UI — Phase 2
+**MediPath — Emergency Assistance Mobile Application**
 
-The mobile prototype now includes a larger set of user-facing screens and flows:
-
-- Welcome and sign-in / registration entry points
-- Home dashboard with the two-second SOS hold demonstration
-- Nearest hospitals list and illustrative offline map panel
-- Hospital route information screen (illustrative only)
-- First Aid topic list, topic detail pages, and CPR overview
-- Emergency details form and request-status demonstration
-- Emergency contacts, assistant placeholder, saved requests, profile, and settings
-
-### Run the mobile app
-
-From the repository root:
-
-```powershell
-npm install
-npx expo start --tunnel ngrok --clear
-```
-
-Scan the QR code with Expo Go on the Android phone.
-
-### Current limitations
-
-This phase focuses on the mobile UI and local demonstration interactions. Supabase authentication and database operations are not connected; hospital data and map routes are sample/illustrative; SOS does not send a real emergency request, share GPS coordinates, or notify barangay responders; and the assistant does not generate live answers. First-aid and CPR content must be reviewed and approved by a qualified medical professional before public use. Do not use this prototype as an operational emergency response service.
+*Developed as an academic software development project.*
