@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './src/components/Home';
 import Login from './src/components/Login';
 import Register from './src/components/Register';
+import Profile from './src/components/Profile';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ const RootStack = createNativeStackNavigator({
     Home: Home,
     Register: Register,
     Login: Login,
+    Profile: Profile,
   },
   screenOptions: {
     headerShown: false,
