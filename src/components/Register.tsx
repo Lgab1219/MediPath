@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { colors } from '../theme.ts';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeft } from 'lucide-react-native';
+import { getCurrentLocation } from '../functions/requestLocation.ts';
 
 
 interface UserInput {
@@ -27,7 +28,9 @@ function Register() {
 
   const navigation = useNavigation();
 
-  const [locationConsent, setLocationConsent] = useState(true);
+  const [locationConsent, setLocationConsent] = useState(false);
+
+  const [ coords, setCoords ] = useState<{ latitude: number; longitude: number } | null>(null);
 
   async function handleSubmit() {
 
@@ -56,6 +59,17 @@ function Register() {
     } catch (error) {
       setError((error as Error).message);
     }
+  }
+
+  async function requestLocation() {
+    const position = await getCurrentLocation();
+
+    if (position) {
+      setCoords(position.coords);
+      setLocationConsent(true);
+    }
+
+    console.log('Current location:', position ? `${position.coords.latitude}, ${position.coords.longitude}` : 'Location not available');
   }
 
     return (
@@ -112,7 +126,7 @@ function Register() {
             </View>
 
             <View style={styles.consentRow}>
-              <Switch value={locationConsent} onValueChange={setLocationConsent} />
+              <Switch value={locationConsent} onValueChange={requestLocation} />
               <Text style={styles.consentText}>
                 I agree to share my location with barangay responders when I send an emergency request.
               </Text>
