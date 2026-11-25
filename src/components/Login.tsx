@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 
   inputBar: {
     borderWidth: 1,
-    borderColor: '#BE6E46',
+    borderColor: '#D92D20',
     borderRadius: 10,
     paddingVertical: 8,
     paddingHorizontal: 12,
@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
   },
 
   pressedBtn: {
-    backgroundColor: '#ffffff36',
-    borderColor: '#BE6E46',
+    backgroundColor: '#a5231a',
+    borderColor: '#D92D20',
     borderWidth: 1,
   },
 
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 20,
     borderRadius: 10,
-    backgroundColor: '#BE6E46',
+    backgroundColor: '#D92D20',
     alignItems: 'center',
     marginBottom: 10,
   },
