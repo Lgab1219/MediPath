@@ -4,6 +4,7 @@ import Home from './src/components/Home';
 import Login from './src/components/Login';
 import Register from './src/components/Register';
 import Profile from './src/components/Profile';
+import HospitalMap from './src/components/HospitalMap';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ const RootStack = createNativeStackNavigator({
     Register: Register,
     Login: Login,
     Profile: Profile,
+    HospitalMap: HospitalMap,
   },
   screenOptions: {
     headerShown: false,

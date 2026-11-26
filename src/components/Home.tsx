@@ -6,7 +6,6 @@ import { colors } from '../theme.ts';
 import { Phone, Hospital, Heart } from 'lucide-react-native';
 
 type Props = StaticScreenProps<{ full_name: string }>;
-// type IconName = React.ComponentProps<typeof Feather>["name"];
 
 function Home({ route }: Props) {
 
@@ -94,7 +93,7 @@ function Home({ route }: Props) {
         </View>
 
         <View style={styles.tiles}>
-          <Pressable style={styles.tile} onPress={() => {}}>
+          <Pressable style={styles.tile} onPress={() => navigation.navigate("HospitalMap")}>
             <View style={styles.tileIcon}>
               <Hospital color="#FFFFFF" size={24} />
             </View>
