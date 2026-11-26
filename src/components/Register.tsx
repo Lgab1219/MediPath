@@ -30,8 +30,6 @@ function Register() {
 
   const [locationConsent, setLocationConsent] = useState(false);
 
-  const [ coords, setCoords ] = useState<{ latitude: number; longitude: number } | null>(null);
-
   async function handleSubmit() {
 
       if (!locationConsent) {
@@ -65,11 +63,8 @@ function Register() {
     const position = await getCurrentLocation();
 
     if (position) {
-      setCoords(position.coords);
       setLocationConsent(true);
     }
-
-    console.log('Current location:', position ? `${position.coords.latitude}, ${position.coords.longitude}` : 'Location not available');
   }
 
     return (
