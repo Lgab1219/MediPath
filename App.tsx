@@ -1,5 +1,6 @@
 import { createStaticNavigation, type StaticParamList } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Welcome from './src/components/Welcome';
 import Home from './src/components/Home';
 import Login from './src/components/Login';
 import Register from './src/components/Register';
@@ -13,8 +14,9 @@ function App() {
 }
 
 const RootStack = createNativeStackNavigator({
-  initialRouteName: 'Login',
+  initialRouteName: 'Welcome',
   screens: {
+    Welcome: Welcome,
     Home: Home,
     Register: Register,
     Login: Login,
